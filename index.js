@@ -127,7 +127,7 @@ module.exports = postcss.plugin("postcss-custom-properties", function(options) {
         delete variables[name]
       }
     })
-    var strict = options.strict === undefined ? true : options.strict
+    var strict = options.strict
     var appendVariables = options.appendVariables
     var preserve = options.preserve
     var map = {}

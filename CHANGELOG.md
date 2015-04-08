@@ -3,6 +3,8 @@
 - Changed: upgade to postcss ^4.1.x
 - Changed: messages and exceptions are now using postcss API.
 Messages are not outputted by default to console anymore.
+- Changed: `strict` is now default to false
+
 # 3.3.0 - 2015-04-0
 
 - Added: `preserve` now support `"computed"` so only preserve resolved custom properties (see new option below)

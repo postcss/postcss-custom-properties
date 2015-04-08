@@ -6,5 +6,5 @@
 div {
   aProp: var(--a, aPropFallback);
   bProp: var(--b, bPropFallback);
-  bProp: var(--cUndef, cPropFallback);
+  cProp: var(--cUndef, var(--b, cPropFallback));
 }

@@ -126,7 +126,7 @@ test("circular variable references", function(t) {
 
 test("circular variable references with fallback", function(t) {
   compareFixtures(t, "self-reference-fallback")
-  compareFixtures(t, "self-reference-double-fallback")
+  compareFixtures(t, "self-reference-double-fallback", {strict: true})
   t.end()
 })
 
@@ -145,7 +145,7 @@ test("append variables", function(t) {
 
 test("strict option", function(t) {
   compareFixtures(t, "substitution-strict", {
-    strict: false,
+    strict: true,
   })
 
   t.end()
