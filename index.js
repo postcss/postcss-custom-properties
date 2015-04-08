@@ -2,6 +2,7 @@
  * Module dependencies.
  */
 
+var postcss = require("postcss")
 var balanced = require("balanced-match")
 var helpers = require("postcss-message-helpers")
 
@@ -119,17 +120,15 @@ function resolveValue(value, variables, source) {
 module.exports = function(options) {
   return function(style) {
     options = options || {}
-    var userVariables = options.variables || {}
-    var variables =
-      Object.keys(userVariables)
-        .reduce(function(acc, key) {
-          if (key.indexOf("--") !== 0) {
-            acc["--" + key] = userVariables[key]
-          }
-          acc[key] = userVariables[key]
-          return acc
-        }, {})
-    var preserve = (options.preserve === true ? true : false)
+    var variables = options.variables || {}
+    Object.keys(variables).forEach(function(name) {
+      if (name.slice(0, 2) !== "--") {
+        variables["--" + name] = variables[name]
+        delete variables[name]
+      }
+    })
+    var append = options.append
+    var preserve = options.preserve
     var map = {}
     var importantMap = {}
 
@@ -194,6 +193,16 @@ module.exports = function(options) {
       }
     })
 
+    if (preserve) {
+      Object.keys(map).forEach(function(name) {
+        var variable = map[name]
+        if (!variable.resolved) {
+          variable.value = resolveValue(variable.value, map)
+          variable.resolved = true
+        }
+      })
+    }
+
     // resolve variables
     style.eachDecl(function(decl) {
       var value = decl.value
@@ -210,9 +219,30 @@ module.exports = function(options) {
         })
       }, decl.source)
 
-      if (!preserve) {
+      if (!preserve || preserve === "computed") {
         decl.removeSelf()
       }
     })
+
+    if (preserve && append) {
+      var names = Object.keys(map)
+      if (names.length) {
+        var container = postcss.rule({
+          selector: ":root",
+          semicolon: true,
+        })
+        names.forEach(function(name) {
+          var variable = map[name]
+          var val = variable.value
+          if (variable.resolved) { val = val[val.length - 1] }
+          var decl = postcss.decl({
+            prop: name,
+            value: val,
+          })
+          container.append(decl)
+        })
+        style.append(container)
+      }
+    }
   }
 }
