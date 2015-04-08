@@ -30,7 +30,7 @@ var RE_VAR = /([\w-]+)(?:\s*,\s*)?(.*)?/ // matches `name[, fallback]`, captures
  * @return {String} A property value with all CSS variables substituted.
  */
 
-function resolveValue(value, variables, source) {
+function resolveValue(value, variables, strict, source) {
   var results = []
 
   var start = value.indexOf(VAR_FUNC_IDENTIFIER + "(")
@@ -54,7 +54,7 @@ function resolveValue(value, variables, source) {
     // undefined and without fallback, just keep original value
     if (!variable && !fallback) {
       console.warn(helpers.message("variable '" + name + "' is undefined and used without a fallback", source))
-      post = matches.post ? resolveValue(matches.post, variables, source) : [""]
+      post = matches.post ? resolveValue(matches.post, variables, strict, source) : [""]
       // resolve the end of the expression
       post.forEach(function(afterValue) {
         results.push(value.slice(0, start) + VAR_FUNC_IDENTIFIER + "(" + name + ")" + afterValue)
@@ -64,15 +64,17 @@ function resolveValue(value, variables, source) {
 
     // prepend with fallbacks
     if (fallback) {
-      // resolve fallback values
-      fallback = resolveValue(fallback, variables, source)
-      // resolve the end of the expression before the rest
-      post = matches.post ? resolveValue(matches.post, variables, source) : [""]
-      fallback.forEach(function(fbValue) {
-        post.forEach(function(afterValue) {
-          results.push(value.slice(0, start) + fbValue + afterValue)
+      if (strict || !variable) {
+        // resolve fallback values
+        fallback = resolveValue(fallback, variables, strict, source)
+        // resolve the end of the expression before the rest
+        post = matches.post ? resolveValue(matches.post, variables, strict, source) : [""]
+        fallback.forEach(function(fbValue) {
+          post.forEach(function(afterValue) {
+            results.push(value.slice(0, start) + fbValue + afterValue)
+          })
         })
-      })
+      }
     }
 
     if (!variable) {
@@ -89,21 +91,24 @@ function resolveValue(value, variables, source) {
           variable.circular = true
         }
         else {
-          variable.value = fallback
+          variable.value = strict ? fallback : resolveValue(fallback, variables, strict, source)
           return
         }
       }
       else {
         variable.deps.push(name)
-        variable.value = resolveValue(variable.value, variables, source)
+        variable.value = resolveValue(variable.value, variables, strict, source)
       }
       variable.resolved = true
     }
-    if (variable.circular && fallback) {
+    if (strict && variable.circular && fallback) {
       return
     }
+    if (!strict) {
+      fallback = resolveValue(fallback, variables, strict, source)
+    }
     // resolve the end of the expression
-    post = matches.post ? resolveValue(matches.post, variables, source) : [""]
+    post = matches.post ? resolveValue(matches.post, variables, strict, source) : [""]
     variable.value.forEach(function(replacementValue) {
       post.forEach(function(afterValue) {
         results.push(value.slice(0, start) + replacementValue + afterValue)
@@ -199,7 +204,7 @@ module.exports = function(options) {
       Object.keys(map).forEach(function(name) {
         var variable = map[name]
         if (!variable.resolved) {
-          variable.value = resolveValue(variable.value, map)
+          variable.value = resolveValue(variable.value, map, strict)
           variable.resolved = true
         }
       })
@@ -215,10 +220,7 @@ module.exports = function(options) {
       }
 
       helpers.try(function resolve() {
-        var resolved = resolveValue(value, map, decl.source)
-        if (!strict) {
-          resolved = [resolved.pop()]
-        }
+        var resolved = resolveValue(value, map, strict, decl.source)
         resolved.forEach(function(resolvedValue) {
           var clone = decl.cloneBefore()
           clone.value = resolvedValue
