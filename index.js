@@ -166,8 +166,8 @@ module.exports = postcss.plugin("postcss-custom-properties", function(options) {
 
     // override the warn function to do nothing if warnings are disabled
     var result = Object.assign({}, _result, {
-      warn: warnings === true ? _result.warn : function () {}
-    });
+      warn: warnings === true ? _result.warn : function() {},
+    })
 
     // define variables
     style.walkRules(function(rule) {

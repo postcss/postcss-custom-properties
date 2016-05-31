@@ -74,7 +74,11 @@ test(
 test(
   "allow hiding undefined var warning",
   function(t) {
-    var result = compareFixtures(t, "substitution-undefined", { warnings: false })
+    var result = compareFixtures(
+      t,
+      "substitution-undefined",
+      {warnings: false}
+    )
     t.equal(
       result.messages.length,
       0,
@@ -217,7 +221,7 @@ test("circular variable references", function(t) {
 
 test("allow hiding circular variable reference warning", function(t) {
   compareFixtures(t, "self-reference")
-  var result = compareFixtures(t, "circular-reference", { warnings: false })
+  var result = compareFixtures(t, "circular-reference", {warnings: false})
   t.equal(
     result.messages.length,
     0,
