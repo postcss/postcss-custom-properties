@@ -155,7 +155,7 @@ module.exports = postcss.plugin("postcss-custom-properties", function(options) {
     options.variables = prefixVariables(variables)
   }
 
-  function plugin(style, result) {
+  function plugin(style, _result) {
     var warnings = options.warnings === undefined ? true : options.warnings
     var variables = prefixVariables(options.variables)
     var strict = options.strict === undefined ? true : options.strict
@@ -163,6 +163,11 @@ module.exports = postcss.plugin("postcss-custom-properties", function(options) {
     var preserve = options.preserve
     var map = {}
     var importantMap = {}
+
+    // override the warn function to do nothing if warnings are disabled
+    var result = Object.assign({}, _result, {
+      warn: warnings === true ? _result.warn : function () {}
+    });
 
     // define variables
     style.walkRules(function(rule) {
@@ -177,7 +182,6 @@ module.exports = postcss.plugin("postcss-custom-properties", function(options) {
         rule.each(function(decl) {
           var prop = decl.prop
           if (
-            warnings &&
             prop &&
             prop.indexOf(VAR_PROP_IDENTIFIER) === 0
           ) {
