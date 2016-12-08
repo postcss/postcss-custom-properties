@@ -71,6 +71,22 @@ test(
   }
 )
 
+test(
+  "substitutes nothing when a variable function references an undefined var"
+  + " and do not trigger a warning",
+  function(t) {
+    var result = compareFixtures(t, "substitution-undefined-no-warning", {
+      allowEmpty: true,
+    })
+    t.equal(
+      result.messages.length,
+      0,
+      "should not add a warning for undefined variable when warning disabled"
+    )
+    t.end()
+  }
+)
+
 test("substitutes defined variables in `:root` only", function(t) {
   var result = compareFixtures(t, "substitution-defined")
   t.ok(

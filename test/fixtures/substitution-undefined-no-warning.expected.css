@@ -1,0 +1,8 @@
+div {
+  color: var(--test);
+  color: fallback;
+  background: linear-gradient(var(--a), var(--b));
+  background: linear-gradient(var(--a), var(--b), true);
+  background: linear-gradient(var(--a), true , var(--b));
+  background: linear-gradient(var(--a), true , var(--b), true);
+}
