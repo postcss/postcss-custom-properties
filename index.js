@@ -27,10 +27,13 @@ var RE_VAR = /([\w-]+)(?:\s*,\s*)?\s*(.*)?/
  *                       functions
  * @param {Object} variables A map of variable names and values
  * @param {Object} source source object of the declaration containing the rule
+ * @param {Object} opts resolve options:
+ *                        - allowEmpty: do not warm on empty variable
  * @return {String} A property value with all CSS variables substituted.
  */
 
-function resolveValue(value, variables, result, decl) {
+function resolveValue(value, variables, result, opts, decl) {
+  var allowEmpty = (opts && opts.allowEmpty ? opts.allowEmpty : false)
   var results = []
 
   var start = value.indexOf(VAR_FUNC_IDENTIFIER + "(")
@@ -53,12 +56,14 @@ function resolveValue(value, variables, result, decl) {
     var post
     // undefined and without fallback, just keep original value
     if (!variable && !fallback) {
-      result.warn(
-        "variable '" + name + "' is undefined and used without a fallback",
-        {node: decl}
-      )
+      if (!allowEmpty) {
+        result.warn(
+          "variable '" + name + "' is undefined and used without a fallback",
+          {node: decl}
+        )
+      }
       post = matches.post
-        ? resolveValue(matches.post, variables, result, decl)
+        ? resolveValue(matches.post, variables, result, opts, decl)
         : [""]
       // resolve the end of the expression
       post.forEach(function(afterValue) {
@@ -73,10 +78,10 @@ function resolveValue(value, variables, result, decl) {
     // prepend with fallbacks
     if (fallback) {
       // resolve fallback values
-      fallback = resolveValue(fallback, variables, result, decl)
+      fallback = resolveValue(fallback, variables, result, opts, decl)
       // resolve the end of the expression before the rest
       post = matches.post
-        ? resolveValue(matches.post, variables, result, decl)
+        ? resolveValue(matches.post, variables, result, opts, decl)
         : [""]
       fallback.forEach(function(fbValue) {
         post.forEach(function(afterValue) {
@@ -105,7 +110,9 @@ function resolveValue(value, variables, result, decl) {
       }
       else {
         variable.deps.push(name)
-        variable.value = resolveValue(variable.value, variables, result, decl)
+        variable.value = resolveValue(
+          variable.value, variables, result, opts, decl
+        )
       }
       variable.resolved = true
     }
@@ -114,7 +121,7 @@ function resolveValue(value, variables, result, decl) {
     }
     // resolve the end of the expression
     post = matches.post
-      ? resolveValue(matches.post, variables, result, decl)
+      ? resolveValue(matches.post, variables, result, opts, decl)
       : [""]
     variable.value.forEach(function(replacementValue) {
       post.forEach(function(afterValue) {
@@ -161,8 +168,11 @@ module.exports = postcss.plugin("postcss-custom-properties", function(options) {
     var strict = options.strict === undefined ? true : options.strict
     var appendVariables = options.appendVariables
     var preserve = options.preserve
+    var allowEmpty = !!options.allowEmpty || false
     var map = {}
     var importantMap = {}
+
+    var resolveValueOpts = {allowEmpty: allowEmpty}
 
     // define variables
     style.walkRules(function(rule) {
@@ -235,7 +245,9 @@ module.exports = postcss.plugin("postcss-custom-properties", function(options) {
       Object.keys(map).forEach(function(name) {
         var variable = map[name]
         if (!variable.resolved) {
-          variable.value = resolveValue(variable.value, map, result)
+          variable.value = resolveValue(
+            variable.value, map, result, resolveValueOpts
+          )
           variable.resolved = true
         }
       })
@@ -250,7 +262,7 @@ module.exports = postcss.plugin("postcss-custom-properties", function(options) {
         return
       }
 
-      var resolved = resolveValue(value, map, result, decl)
+      var resolved = resolveValue(value, map, result, resolveValueOpts, decl)
       if (!strict) {
         resolved = [resolved.pop()]
       }
