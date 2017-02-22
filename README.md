@@ -126,8 +126,6 @@ Default: `true`
 Type: `Boolean|Object`
 
 Allows you to enable/disable warnings. If true, will enable all warnings.
-For now, it only allow to disable messages about custom properties definition
-not scoped in a `:root` selector.
 
 ---
 
