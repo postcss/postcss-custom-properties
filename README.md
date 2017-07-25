@@ -117,7 +117,7 @@ variables in your codebase.
 
 Default: `false`
 
-If `preserve` is set to `true` (or `"computed"`), allows you to append your
+If `preserve` is set to `false` (or `"computed"`), allows you to append your
 variables at the end of your CSS.
 
 #### `warnings`
