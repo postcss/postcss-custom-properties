@@ -23,7 +23,7 @@ function compareFixtures(t, name, options) {
   const actual = postcssResult.css.trim()
 
   // handy thing: checkout actual in the *.actual.css file
-  fs.writeFile(fixturePath(name + ".actual"), actual)
+  fs.writeFile(fixturePath(name + ".actual"), actual, () => {})
 
   const expected = fixture(name + ".expected")
   t.equal(
