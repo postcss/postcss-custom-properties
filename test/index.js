@@ -247,6 +247,20 @@ test("append variables", function(t) {
   t.end()
 })
 
+test("append variables without duplicates", function(t) {
+  compareFixtures(t, "append.duplicates", {
+    variables: {
+      "--test-two": "js-one",
+      "test-three": "js-two",
+      "test-four": "var(--test-one, one) var(--test-two, two) " +
+          "var(--test-three, three)",
+    },
+    preserve: "computed",
+    appendVariables: true,
+  })
+  t.end()
+})
+
 test("strict option", function(t) {
   compareFixtures(t, "substitution-strict", {
     strict: false,
