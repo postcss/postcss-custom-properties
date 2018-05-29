@@ -167,6 +167,12 @@ export default postcss.plugin("postcss-custom-properties", (options = {}) => {
     const appendVariables = "appendVariables" in options
       ? Boolean(options.appendVariables) : false
     const preserve = "preserve" in options ? options.preserve : true
+    const root = "root" in options 
+      && (options.root == ":root" 
+      || options.root == "html")
+      ? options.root
+      : ":root"
+
     const map = {}
     const importantMap = {}
 
@@ -180,10 +186,10 @@ export default postcss.plugin("postcss-custom-properties", (options = {}) => {
     style.walkRules((rule) => {
       const toRemove = []
 
-      // only variables declared for `:root` are supported for now
+      // only variables declared for `:root` or `html` are supported for now
       if (
         rule.selectors.length !== 1 ||
-        rule.selectors[0] !== ":root" ||
+        !(rule.selectors[0] == ":root" || rule.selectors[0] == "html") ||
         rule.parent.type !== "root"
       ) {
         rule.each((decl) => {
@@ -194,7 +200,8 @@ export default postcss.plugin("postcss-custom-properties", (options = {}) => {
             prop.indexOf(VAR_PROP_IDENTIFIER) === 0
           ) {
             result.warn(
-              "Custom property ignored: not scoped to the top-level :root " +
+              "Custom property ignored: not scoped to the top-level " +
+              ":root or html " +
               `element (${rule.selectors} { ... ${prop}: ... })` +
               (rule.parent.type !== "root" ? ", in " + rule.parent.type : ""),
               {node: decl}
@@ -280,7 +287,7 @@ export default postcss.plugin("postcss-custom-properties", (options = {}) => {
       const names = Object.keys(map)
       if (names.length) {
         const container = postcss.rule({
-          selector: ":root",
+          selector: root,
           raws: {semicolon: true},
         })
         names

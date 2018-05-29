@@ -291,6 +291,41 @@ h1 {
 }
 ```
 
+### root
+
+The `root` option determined which root node to insert `variables` into. The 
+value can be either `:root` or `html`. By default, the option is set to `:root`. 
+
+If `appendVariables` is enabled and `preserve` is set to `true` or `"computed"`, 
+variables will be a appended to the css inside of the specified root. 
+
+```js
+postCSSCustomProperties({
+  root: 'html',
+  appendVariables: true,
+  variables: {
+    color: 'red'
+  }
+})
+```
+
+```css
+h1 {
+  color: var(--color);
+}
+
+/* becomes */
+
+h1 {
+  color: red;
+  color: var(--color);
+}
+
+html {
+  --color: red;
+}
+```
+
 ### warnings
 
 The `warnings` option determines whether Custom Property related warnings should

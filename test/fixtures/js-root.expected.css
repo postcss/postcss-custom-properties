@@ -1,0 +1,26 @@
+:root {
+    --test-one: local;
+  }
+  
+  div {
+    p: local;
+    p: var(--test-one);
+    p: js-two;
+    p: var(--test-two);
+    p: js-three;
+    p: var(--test-three);
+    p: js-two;
+    p: var(--test-varception);
+    p: js-two;
+    p: var(--test-jsception);
+    p: 1;
+    p: var(--test-num);
+  }
+  
+  html {
+    --test-two: js-two;
+    --test-three: js-three;
+    --test-varception: js-two;
+    --test-jsception: js-two;
+    --test-num: 1;
+}

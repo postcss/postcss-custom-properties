@@ -273,3 +273,26 @@ test("ignores trailing space after variable", function(t) {
   compareFixtures(t, "substitution-trailing-space")
   t.end()
 })
+
+test("allow variablie definitions in html root element", function(t) {
+  compareFixtures(t, "html-root")
+  t.end()
+})
+
+test(
+  "allow root option to determine in which root node js variables are set",
+  function(t) {
+    compareFixtures(t, "js-root", {
+      root: "html",
+      variables: {
+        "--test-two": "js-two",
+        "--test-three": "js-three",
+        "--test-varception": "var(--test-two)",
+        "--test-jsception": "var(--test-varception)",
+        "--test-num": 1,
+      },
+      appendVariables: true,
+    })
+    t.end()
+  }
+)

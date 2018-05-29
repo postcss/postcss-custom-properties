@@ -1,3 +1,5 @@
 dist
 node_modules
 test/fixtures/*.actual.css
+.vscode/settings.json
+vscode.code-workspace
