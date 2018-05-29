@@ -1,0 +1,13 @@
+html {
+    --test-one: red; 
+}
+:root {
+    --test-two: blue;
+}
+
+div {
+    color: red;
+    color: var(--test-one);
+    background-color: blue;
+    background-color: var(--test-two);
+}
