@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "balanced-match": "^1.0.0",
-    "postcss": "^6.0.23"
+    "postcss": "^7.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
