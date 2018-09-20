@@ -24,7 +24,6 @@ export default postcss.plugin("postcss-custom-properties", opts => {
 		);
 
 		await exportCustomPropertiesToDestinations(customProperties, exportTo);
-		console.log("Custom properties:", customProperties);
 
 		transformProperties(root, customProperties, { preserve });
 	};
