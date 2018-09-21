@@ -266,14 +266,20 @@ module.exports = {
 				preserve: false
 			}
 		},
-		'basic:import': {
+		'mediaquery:import': {
 			message: 'supports { importFrom: { customProperties: { ... } } } usage',
 			options: {
 				importFrom: {
 					customProperties: {
-						'--color': 'rgb(255, 0, 0)',
-						'--color-2': 'yellow',
-						'--ref-color': 'var(--color)'
+						mediaQueries: [
+							{
+								params: "(min-width: 961px)",
+								rules:
+									{
+										'--color-2': 'rgb(0, 255, 255)',
+									}
+							}
+						]
 					}
 				}
 			}
