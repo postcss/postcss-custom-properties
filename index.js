@@ -1,7 +1,7 @@
 import postcss from 'postcss';
 import getCustomProperties from './lib/get-custom-properties';
 import transformProperties from './lib/transform-properties';
-import importCustomPropertiesFromSources from './lib/import-from';
+import importCustomPropertiesFromSources, { combineCustomProperties } from './lib/import-from';
 import exportCustomPropertiesToDestinations from './lib/export-to';
 
 export default postcss.plugin('postcss-custom-properties', opts => {
@@ -18,10 +18,10 @@ export default postcss.plugin('postcss-custom-properties', opts => {
 	const customPropertiesPromise = importCustomPropertiesFromSources(importFrom);
 
 	return async root => {
-		const customProperties = Object.assign(
+		const customProperties = combineCustomProperties(
 			await customPropertiesPromise,
 			getCustomProperties(root, { preserve })
-		);
+		)
 
 		await exportCustomPropertiesToDestinations(customProperties, exportTo);
 

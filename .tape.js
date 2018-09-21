@@ -3,6 +3,9 @@ module.exports = {
 		'basic': {
 			message: 'supports basic usage'
 		},
+		'mediaQueries': {
+			message: 'supports media query usage'
+		},
 		'basic:preserve': {
 			message: 'supports { preserve: false } usage',
 			options: {

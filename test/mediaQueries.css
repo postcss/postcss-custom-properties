@@ -1,0 +1,25 @@
+html {
+	--ref-color: skip;
+}
+
+:root {
+	--color: rgb(255, 0, 0);
+	--ref-color: var(--color);
+	--circular: var(--circular-2);
+	--circular-2: var(--circular);
+}
+
+.test {
+	--skip: gray;
+	color: var(--color);
+}
+
+@media (min-width: 961px) {
+	:root {
+		--color: rgb(0, 255, 0);
+	}
+	.test {
+		--skip: gray;
+		color: var(--color);
+	}
+}
