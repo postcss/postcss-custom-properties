@@ -33,12 +33,3 @@ html {
 	box-shadow: inset 0 -3px 0        rgb(255, 0, 0);
 	box-shadow: inset 0 -3px 0        var(--color);
 }
-
-@media (min-width: 961px) {
-	.test {
-		--skip: gray;
-		color: rgb(0, 255, 255);
-		color: var(--color2);
-	}
-}
-
