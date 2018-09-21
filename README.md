@@ -29,6 +29,49 @@ h1 {
 }
 ```
 
+### With MediaQueries
+```pcss
+:root {
+  --color: red;
+}
+
+h1 {
+  color: var(--color);
+}
+
+@media (min-width: 961px) {
+	:root {
+		--color: green;
+	}
+
+  h1 {
+    color: var(--color);
+  }
+}
+
+/* becomes */
+
+:root {
+  --color: red;
+}
+
+h1 {
+  color: red;
+  color: var(--color);
+}
+
+@media (min-width: 961px) {
+	:root {
+		--color: green;
+	}
+
+  h1 {
+    color: green;
+    color: var(--color);
+  }
+}
+```
+
 ## Usage
 
 Add [PostCSS Custom Properties] to your project:
@@ -89,6 +132,7 @@ h1 {
 h1 {
   color: red;
 }
+
 ```
 
 ### importFrom
@@ -178,6 +222,10 @@ postcssCustomProperties({
 See example exports written to [CSS](test/export-properties.css),
 [JS](test/export-properties.js), [MJS](test/export-properties.mjs), and
 [JSON](test/export-properties.json).
+
+Foe MediaQuery exports that overwrite certain properties check [CSS](test/mediaquery-export-properties.css),
+[JS](test/mediaquery-export-properties.js), [MJS](test/mediaquery-export-properties.mjs), and
+[JSON](test/mediaquery-export-properties.json).
 
 [cli-img]: https://img.shields.io/travis/postcss/postcss-custom-properties.svg
 [cli-url]: https://travis-ci.org/postcss/postcss-custom-properties
