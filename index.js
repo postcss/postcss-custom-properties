@@ -1,12 +1,12 @@
-import postcss from "postcss";
-import getCustomProperties from "./lib/get-custom-properties";
-import transformProperties from "./lib/transform-properties";
-import importCustomPropertiesFromSources from "./lib/import-from";
-import exportCustomPropertiesToDestinations from "./lib/export-to";
+import postcss from 'postcss';
+import getCustomProperties from './lib/get-custom-properties';
+import transformProperties from './lib/transform-properties';
+import importCustomPropertiesFromSources from './lib/import-from';
+import exportCustomPropertiesToDestinations from './lib/export-to';
 
-export default postcss.plugin("postcss-custom-properties", opts => {
+export default postcss.plugin('postcss-custom-properties', opts => {
 	// whether to preserve custom selectors and rules using them
-	const preserve = "preserve" in Object(opts) ? Boolean(opts.preserve) : true;
+	const preserve = 'preserve' in Object(opts) ? Boolean(opts.preserve) : true;
 
 	// sources to import custom selectors from
 	const importFrom = [].concat(Object(opts).importFrom || []);
