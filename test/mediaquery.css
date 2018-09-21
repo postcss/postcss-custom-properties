@@ -14,6 +14,22 @@ html {
 	color: var(--color);
 }
 
+.test--fallback {
+	color: var(--color-2, blue);
+}
+
+.test--color_w_var {
+	color: var(--ref-color);
+}
+
+.test--circular_var {
+	color: var(--circular);
+}
+
+.test--color_spacing {
+	box-shadow: inset 0 -3px 0        var(--color);
+}
+
 @media (min-width: 961px) {
 	:root {
 		--color: rgb(0, 255, 0);
