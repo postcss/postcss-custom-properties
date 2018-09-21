@@ -380,7 +380,7 @@ module.exports = {
 			expect: 'mediaquery.expect.css',
 			result: 'mediaquery.result.css',
 			after() {
-				if (__exportPropertiesObject.customProperties['--color'] !== 'rgb(255, 0, 0)') {
+				if (__exportPropertiesObject.customProperties.mediaQueries[0].rules['--color'] !== 'rgb(0, 255, 0)') {
 					throw new Error('The exportTo function failed');
 				}
 			}
@@ -389,7 +389,7 @@ module.exports = {
 			message: 'Mediaqueries support { exportTo() } usage',
 			options: {
 				exportTo(customProperties) {
-					if (customProperties['--color'] !== 'rgb(255, 0, 0)') {
+					if (customProperties.mediaQueries[0].rules['--color'] !== 'rgb(0, 255, 0)') {
 						throw new Error('The exportTo function failed');
 					}
 				}
@@ -402,7 +402,7 @@ module.exports = {
 			options: {
 				exportTo(customProperties) {
 					return new Promise((resolve, reject) => {
-						if (customProperties['--color'] !== 'rgb(255, 0, 0)') {
+						if (customProperties.mediaQueries[0].rules['--color'] !== 'rgb(0, 255, 0)') {
 							reject('The exportTo function failed');
 						} else {
 							resolve();
@@ -414,97 +414,97 @@ module.exports = {
 			result: 'mediaquery.result.css'
 		},
 		'mediaquery:export-json': {
-			message: 'Mediaqueries support { exportTo: "test/export-properties.json" } usage',
+			message: 'Mediaqueries support { exportTo: "test/mediaquery-export-properties.json" } usage',
 			options: {
-				exportTo: 'test/export-properties.json'
+				exportTo: 'test/mediaquery-export-properties.json'
 			},
 			expect: 'mediaquery.expect.css',
 			result: 'mediaquery.result.css',
 			before() {
-				global.__exportPropertiesString = require('fs').readFileSync('test/export-properties.json', 'utf8');
+				global.__exportPropertiesString = require('fs').readFileSync('test/mediaquery-export-properties.json', 'utf8');
 			},
 			after() {
-				if (global.__exportPropertiesString !== require('fs').readFileSync('test/export-properties.json', 'utf8')) {
+				if (global.__exportPropertiesString !== require('fs').readFileSync('test/mediaquery-export-properties.json', 'utf8')) {
 					throw new Error('The original file did not match the freshly exported copy');
 				}
 			}
 		},
 		'mediaquery:export-js': {
-			message: 'Mediaqueries support { exportTo: "test/export-properties.js" } usage',
+			message: 'Mediaqueries support { exportTo: "test/mediaquery-export-properties.js" } usage',
 			options: {
-				exportTo: 'test/export-properties.js'
+				exportTo: 'test/mediaquery-export-properties.js'
 			},
 			expect: 'mediaquery.expect.css',
 			result: 'mediaquery.result.css',
 			before() {
-				global.__exportPropertiesString = require('fs').readFileSync('test/export-properties.js', 'utf8');
+				global.__exportPropertiesString = require('fs').readFileSync('test/mediaquery-export-properties.js', 'utf8');
 			},
 			after() {
-				if (global.__exportPropertiesString !== require('fs').readFileSync('test/export-properties.js', 'utf8')) {
+				if (global.__exportPropertiesString !== require('fs').readFileSync('test/mediaquery-export-properties.js', 'utf8')) {
 					throw new Error('The original file did not match the freshly exported copy');
 				}
 			}
 		},
 		'mediaquery:export-mjs': {
-			message: 'Mediaqueries support { exportTo: "test/export-properties.mjs" } usage',
+			message: 'Mediaqueries support { exportTo: "test/mediaquery-export-properties.mjs" } usage',
 			options: {
-				exportTo: 'test/export-properties.mjs'
+				exportTo: 'test/mediaquery-export-properties.mjs'
 			},
 			expect: 'mediaquery.expect.css',
 			result: 'mediaquery.result.css',
 			before() {
-				global.__exportPropertiesString = require('fs').readFileSync('test/export-properties.mjs', 'utf8');
+				global.__exportPropertiesString = require('fs').readFileSync('test/mediaquery-export-properties.mjs', 'utf8');
 			},
 			after() {
-				if (global.__exportPropertiesString !== require('fs').readFileSync('test/export-properties.mjs', 'utf8')) {
+				if (global.__exportPropertiesString !== require('fs').readFileSync('test/mediaquery-export-properties.mjs', 'utf8')) {
 					throw new Error('The original file did not match the freshly exported copy');
 				}
 			}
 		},
 		'mediaquery:export-css': {
-			message: 'Mediaqueries support { exportTo: "test/export-properties.css" } usage',
+			message: 'Mediaqueries support { exportTo: "test/mediaquery-export-properties.css" } usage',
 			options: {
-				exportTo: 'test/export-properties.css'
+				exportTo: 'test/mediaquery-export-properties.css'
 			},
 			expect: 'mediaquery.expect.css',
 			result: 'mediaquery.result.css',
 			before() {
-				global.__exportPropertiesString = require('fs').readFileSync('test/export-properties.css', 'utf8');
+				global.__exportPropertiesString = require('fs').readFileSync('test/mediaquery-export-properties.css', 'utf8');
 			},
 			after() {
-				if (global.__exportPropertiesString !== require('fs').readFileSync('test/export-properties.css', 'utf8')) {
+				if (global.__exportPropertiesString !== require('fs').readFileSync('test/mediaquery-export-properties.css', 'utf8')) {
 					throw new Error('The original file did not match the freshly exported copy');
 				}
 			}
 		},
 		'mediaquery:export-css-to': {
-			message: 'Mediaqueries support { exportTo: { to: "test/export-properties.css" } } usage',
+			message: 'Mediaqueries support { exportTo: { to: "test/mediaquery-export-properties.css" } } usage',
 			options: {
-				exportTo: { to: 'test/export-properties.css' }
+				exportTo: { to: 'test/mediaquery-export-properties.css' }
 			},
 			expect: 'mediaquery.expect.css',
 			result: 'mediaquery.result.css',
 			before() {
-				global.__exportPropertiesString = require('fs').readFileSync('test/export-properties.css', 'utf8');
+				global.__exportPropertiesString = require('fs').readFileSync('test/mediaquery-export-properties.css', 'utf8');
 			},
 			after() {
-				if (global.__exportPropertiesString !== require('fs').readFileSync('test/export-properties.css', 'utf8')) {
+				if (global.__exportPropertiesString !== require('fs').readFileSync('test/mediaquery-export-properties.css', 'utf8')) {
 					throw new Error('The original file did not match the freshly exported copy');
 				}
 			}
 		},
 		'mediaquery:export-css-to-type': {
-			message: 'Mediaqueries support { exportTo: { to: "test/export-properties.css", type: "css" } } usage',
+			message: 'Mediaqueries support { exportTo: { to: "test/mediaquery-export-properties.css", type: "css" } } usage',
 			options: {
-				exportTo: { to: 'test/export-properties.css', type: 'css' }
+				exportTo: { to: 'test/mediaquery-export-properties.css', type: 'css' }
 			},
 			expect: 'mediaquery.expect.css',
 			result: 'mediaquery.result.css',
 			before() {
-				global.__exportPropertiesString = require('fs').readFileSync('test/export-properties.css', 'utf8');
+				global.__exportPropertiesString = require('fs').readFileSync('test/mediaquery-export-properties.css', 'utf8');
 			},
 			after() {
-				if (global.__exportPropertiesString !== require('fs').readFileSync('test/export-properties.css', 'utf8')) {
+				if (global.__exportPropertiesString !== require('fs').readFileSync('test/mediaquery-export-properties.css', 'utf8')) {
 					throw new Error('The original file did not match the freshly exported copy');
 				}
 			}
