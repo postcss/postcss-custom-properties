@@ -235,16 +235,16 @@ module.exports = {
 			}
 		},
 		'mediaquery': {
-			message: 'supports basic usage'
+			message: 'Mediaqueries support basic usage'
 		},
 		'mediaquery:preserve': {
-			message: 'supports { preserve: false } usage',
+			message: 'Mediaqueries support { preserve: false } usage',
 			options: {
 				preserve: false
 			}
 		},
 		'mediaquery:import': {
-			message: 'supports { importFrom: { customProperties: { ... } } } usage',
+			message: 'Mediaqueries support { importFrom: { customProperties: { ... } } } usage',
 			options: {
 				importFrom: {
 					customProperties: {
@@ -261,97 +261,109 @@ module.exports = {
 				}
 			}
 		},
-		'basic:import-fn': {
-			message: 'supports { importFrom() } usage',
+		'mediaquery:import-fn': {
+			message: 'Mediaqueries support { importFrom() } usage',
 			options: {
 				importFrom() {
 					return {
 						customProperties: {
-							'--color': 'rgb(255, 0, 0)',
-							'--color-2': 'yellow',
-							'--ref-color': 'var(--color)'
+							mediaQueries: [
+								{
+									params: "(min-width: 961px)",
+									rules:
+									{
+										'--color-2': 'rgb(0, 255, 255)',
+						}
+								}
+							]
 						}
 					};
 				}
 			},
-			expect: 'basic.import.expect.css',
-			result: 'basic.import.result.css'
+			expect: 'mediaquery.import.expect.css',
+			result: 'mediaquery.import.result.css'
 		},
-		'basic:import-fn-promise': {
-			message: 'supports { async importFrom() } usage',
+		'mediaquery:import-fn-promise': {
+			message: 'Mediaqueries support { async importFrom() } usage',
 			options: {
 				importFrom() {
 					return new Promise(resolve => {
 						resolve({
 							customProperties: {
-								'--color': 'rgb(255, 0, 0)',
-								'--color-2': 'yellow',
-								'--ref-color': 'var(--color)'
+								mediaQueries: [
+									{
+										params: "(min-width: 961px)",
+										rules:
+										{
+											'--color-2': 'rgb(0, 255, 255)',
+							}
+									}
+								]
 							}
 						})
 					});
 				}
 			},
-			expect: 'basic.import.expect.css',
-			result: 'basic.import.result.css'
+			expect: 'mediaquery.import.expect.css',
+			result: 'mediaquery.import.result.css'
 		},
-		'basic:import-json': {
-			message: 'supports { importFrom: "test/import-properties.json" } usage',
+		'mediaquery:import-json': {
+			message: 'Mediaqueries support { importFrom: "test/mediaquery-import-properties.json" } usage',
 			options: {
-				importFrom: 'test/import-properties.json'
+				importFrom: 'test/mediaquery-import-properties.json'
 			},
-			expect: 'basic.import.expect.css',
-			result: 'basic.import.result.css'
+			expect: 'mediaquery.import.expect.css',
+			result: 'mediaquery.import.result.css'
 		},
-		'basic:import-js': {
-			message: 'supports { importFrom: "test/import-properties.js" } usage',
+		'mediaquery:import-js': {
+			message: 'Mediaqueries support { importFrom: "test/mediaquery-import-properties.js" } usage',
 			options: {
-				importFrom: 'test/import-properties.js'
+				importFrom: 'test/mediaquery-import-properties.js'
 			},
-			expect: 'basic.import.expect.css',
-			result: 'basic.import.result.css'
+			expect: 'mediaquery.import.expect.css',
+			result: 'mediaquery.import.result.css'
 		},
-		'basic:import-css': {
-			message: 'supports { importFrom: "test/import-properties.css" } usage',
+		'mediaquery:import-css': {
+			message: 'Mediaqueries support { importFrom: "test/mediaquery-import-properties.css" } usage',
 			options: {
-				importFrom: 'test/import-properties.css'
+				importFrom: 'test/mediaquery-import-properties.css'
 			},
-			expect: 'basic.import.expect.css',
-			result: 'basic.import.result.css'
+			expect: 'mediaquery.import.expect.css',
+			result: 'mediaquery.import.result.css'
 		},
-		'basic:import-css-from': {
-			message: 'supports { importFrom: { from: "test/import-properties.css" } } usage',
+		'mediaquery:import-css-from': {
+			message: 'Mediaqueries support { importFrom: { from: "test/mediaquery-import-properties.css" } } usage',
 			options: {
-				importFrom: { from: 'test/import-properties.css' }
+				importFrom: { from: 'test/mediaquery-import-properties.css' }
 			},
-			expect: 'basic.import.expect.css',
-			result: 'basic.import.result.css'
+			expect: 'mediaquery.import.expect.css',
+			result: 'mediaquery.import.result.css'
 		},
-		'basic:import-css-from-type': {
-			message: 'supports { importFrom: [ { from: "test/import-properties.css", type: "css" } ] } usage',
+		'mediaquery:import-css-from-type': {
+			message: 'Mediaqueries support { importFrom: [ { from: "test/mediaquery-import-properties.css", type: "css" } ] } usage',
 			options: {
-				importFrom: [ { from: 'test/import-properties.css', type: 'css' } ]
+				importFrom: [ { from: 'test/mediaquery-import-properties.css', type: 'css' } ]
 			},
-			expect: 'basic.import.expect.css',
-			result: 'basic.import.result.css'
+			expect: 'mediaquery.import.expect.css',
+			result: 'mediaquery.import.result.css'
 		},
-		'basic:export': {
-			message: 'supports { exportTo: { customProperties: { ... } } } usage',
+		'mediaquery:export': {
+			message: 'Mediaqueries support { exportTo: { customProperties: { ... } } } usage',
 			options: {
 				exportTo: (global.__exportPropertiesObject = global.__exportPropertiesObject || {
 					customProperties: null
 				})
 			},
-			expect: 'basic.expect.css',
-			result: 'basic.result.css',
+			expect: 'mediaquery.expect.css',
+			result: 'mediaquery.result.css',
 			after() {
 				if (__exportPropertiesObject.customProperties['--color'] !== 'rgb(255, 0, 0)') {
 					throw new Error('The exportTo function failed');
 				}
 			}
 		},
-		'basic:export-fn': {
-			message: 'supports { exportTo() } usage',
+		'mediaquery:export-fn': {
+			message: 'Mediaqueries support { exportTo() } usage',
 			options: {
 				exportTo(customProperties) {
 					if (customProperties['--color'] !== 'rgb(255, 0, 0)') {
@@ -359,11 +371,11 @@ module.exports = {
 					}
 				}
 			},
-			expect: 'basic.expect.css',
-			result: 'basic.result.css'
+			expect: 'mediaquery.expect.css',
+			result: 'mediaquery.result.css'
 		},
-		'basic:export-fn-promise': {
-			message: 'supports { async exportTo() } usage',
+		'mediaquery:export-fn-promise': {
+			message: 'Mediaqueries support { async exportTo() } usage',
 			options: {
 				exportTo(customProperties) {
 					return new Promise((resolve, reject) => {
@@ -375,16 +387,16 @@ module.exports = {
 					});
 				}
 			},
-			expect: 'basic.expect.css',
-			result: 'basic.result.css'
+			expect: 'mediaquery.expect.css',
+			result: 'mediaquery.result.css'
 		},
-		'basic:export-json': {
-			message: 'supports { exportTo: "test/export-properties.json" } usage',
+		'mediaquery:export-json': {
+			message: 'Mediaqueries support { exportTo: "test/export-properties.json" } usage',
 			options: {
 				exportTo: 'test/export-properties.json'
 			},
-			expect: 'basic.expect.css',
-			result: 'basic.result.css',
+			expect: 'mediaquery.expect.css',
+			result: 'mediaquery.result.css',
 			before() {
 				global.__exportPropertiesString = require('fs').readFileSync('test/export-properties.json', 'utf8');
 			},
@@ -394,13 +406,13 @@ module.exports = {
 				}
 			}
 		},
-		'basic:export-js': {
-			message: 'supports { exportTo: "test/export-properties.js" } usage',
+		'mediaquery:export-js': {
+			message: 'Mediaqueries support { exportTo: "test/export-properties.js" } usage',
 			options: {
 				exportTo: 'test/export-properties.js'
 			},
-			expect: 'basic.expect.css',
-			result: 'basic.result.css',
+			expect: 'mediaquery.expect.css',
+			result: 'mediaquery.result.css',
 			before() {
 				global.__exportPropertiesString = require('fs').readFileSync('test/export-properties.js', 'utf8');
 			},
@@ -410,13 +422,13 @@ module.exports = {
 				}
 			}
 		},
-		'basic:export-mjs': {
-			message: 'supports { exportTo: "test/export-properties.mjs" } usage',
+		'mediaquery:export-mjs': {
+			message: 'Mediaqueries support { exportTo: "test/export-properties.mjs" } usage',
 			options: {
 				exportTo: 'test/export-properties.mjs'
 			},
-			expect: 'basic.expect.css',
-			result: 'basic.result.css',
+			expect: 'mediaquery.expect.css',
+			result: 'mediaquery.result.css',
 			before() {
 				global.__exportPropertiesString = require('fs').readFileSync('test/export-properties.mjs', 'utf8');
 			},
@@ -426,13 +438,13 @@ module.exports = {
 				}
 			}
 		},
-		'basic:export-css': {
-			message: 'supports { exportTo: "test/export-properties.css" } usage',
+		'mediaquery:export-css': {
+			message: 'Mediaqueries support { exportTo: "test/export-properties.css" } usage',
 			options: {
 				exportTo: 'test/export-properties.css'
 			},
-			expect: 'basic.expect.css',
-			result: 'basic.result.css',
+			expect: 'mediaquery.expect.css',
+			result: 'mediaquery.result.css',
 			before() {
 				global.__exportPropertiesString = require('fs').readFileSync('test/export-properties.css', 'utf8');
 			},
@@ -442,13 +454,13 @@ module.exports = {
 				}
 			}
 		},
-		'basic:export-css-to': {
-			message: 'supports { exportTo: { to: "test/export-properties.css" } } usage',
+		'mediaquery:export-css-to': {
+			message: 'Mediaqueries support { exportTo: { to: "test/export-properties.css" } } usage',
 			options: {
 				exportTo: { to: 'test/export-properties.css' }
 			},
-			expect: 'basic.expect.css',
-			result: 'basic.result.css',
+			expect: 'mediaquery.expect.css',
+			result: 'mediaquery.result.css',
 			before() {
 				global.__exportPropertiesString = require('fs').readFileSync('test/export-properties.css', 'utf8');
 			},
@@ -458,13 +470,13 @@ module.exports = {
 				}
 			}
 		},
-		'basic:export-css-to-type': {
-			message: 'supports { exportTo: { to: "test/export-properties.css", type: "css" } } usage',
+		'mediaquery:export-css-to-type': {
+			message: 'Mediaqueries support { exportTo: { to: "test/export-properties.css", type: "css" } } usage',
 			options: {
 				exportTo: { to: 'test/export-properties.css', type: 'css' }
 			},
-			expect: 'basic.expect.css',
-			result: 'basic.result.css',
+			expect: 'mediaquery.expect.css',
+			result: 'mediaquery.result.css',
 			before() {
 				global.__exportPropertiesString = require('fs').readFileSync('test/export-properties.css', 'utf8');
 			},
