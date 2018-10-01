@@ -1,3 +1,9 @@
 :root {
 	--ref-color: var(--color);
 }
+
+@media (min-width: 961px) {
+	:root {
+		--color-2: rgb(0, 255, 255);
+	}
+}

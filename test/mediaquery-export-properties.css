@@ -1,8 +1,0 @@
-:root {
-	--color: rgb(255, 0, 0);
-}
-@media(min-width: 961px) {
-:root {
-	--color: rgb(0, 255, 0);
-}
-}
