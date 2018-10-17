@@ -1,5 +1,6 @@
 :root {
 	--ref-color: var(--color);
+	--z-index: 10;
 }
 
 @media (min-width: 961px) {

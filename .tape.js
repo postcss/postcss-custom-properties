@@ -17,6 +17,7 @@ module.exports = {
 						'--color': 'rgb(255, 0, 0)',
 						'--color-2': 'yellow',
 						'--ref-color': 'var(--color)',
+						'--z-index': 10,
 						mediaQueries: [
 							{
 								params: "(min-width: 961px)",
@@ -39,6 +40,7 @@ module.exports = {
 							'--color': 'rgb(255, 0, 0)',
 							'--color-2': 'yellow',
 							'--ref-color': 'var(--color)',
+							'--z-index': 10,
 								mediaQueries: [
 								{
 									params: "(min-width: 961px)",
@@ -65,6 +67,7 @@ module.exports = {
 								'--color': 'rgb(255, 0, 0)',
 								'--color-2': 'yellow',
 								'--ref-color': 'var(--color)',
+								'--z-index': 10,
 								mediaQueries: [
 									{
 										params: "(min-width: 961px)",
