@@ -4,7 +4,7 @@ export default function transformValueAST(root, customProperties) {
 			if (isVarFunction(child)) {
 				// eslint-disable-next-line no-unused-vars
 				const [propertyNode, comma, ...fallbacks] = child.nodes;
-				const { value: name } = propertyNode || {};
+				const { value: name } = propertyNode;
 
 				if (name in customProperties) {
 					// conditionally replace a known custom property
