@@ -17,6 +17,14 @@ export default postcss.plugin('postcss-custom-properties', opts => {
 	// promise any custom selectors are imported
 	const customPropertiesPromise = getCustomPropertiesFromImports(importFrom);
 
+	// make sure we work in synchronous mode if no asynchronous operations are requested
+	if(importFrom.length === 0 && exportTo.length === 0) {
+		return root => {
+			const customProperties = getCustomPropertiesFromRoot(root, { preserve });
+			transformProperties(root, customProperties, { preserve });
+		}
+	}
+
 	return async root => {
 		const customProperties = Object.assign(
 			{},
