@@ -19,6 +19,7 @@ export default postcss.plugin('postcss-custom-properties', opts => {
 
 	return async root => {
 		const customProperties = Object.assign(
+			{},
 			await customPropertiesPromise,
 			getCustomPropertiesFromRoot(root, { preserve })
 		);
