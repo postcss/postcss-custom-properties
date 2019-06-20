@@ -6,7 +6,7 @@ export default function transformValueAST(root, customProperties) {
 				const [propertyNode, comma, ...fallbacks] = child.nodes;
 				const { value: name } = propertyNode;
 
-				if (name in customProperties) {
+				if (name in Object(customProperties)) {
 					// conditionally replace a known custom property
 					const nodes = asClonedArrayWithBeforeSpacing(customProperties[name], child.raws.before);
 
