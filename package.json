@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "postcss": "^7.0.17",
-    "postcss-values-parser": "^2.0.1"
+    "postcss-values-parser": "^3.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
