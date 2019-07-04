@@ -27,7 +27,7 @@ export default (root, customProperties, opts) => {
 const customPropertyRegExp = /^--[A-z][\w-]*$/;
 
 // match custom property inclusions
-const customPropertiesRegExp = /(^|[^\w-])var\([\W\w]+\)/;
+const customPropertiesRegExp = /var\(--.*?\)/;
 
 // whether the declaration should be potentially transformed
 const isTransformableDecl = decl => !customPropertyRegExp.test(decl.prop) && customPropertiesRegExp.test(decl.value);
