@@ -1,4 +1,15 @@
 module.exports = {
+	'nested-fallback': {
+		message: 'supports nested fallback',
+		options: {
+			preserve: true,
+			importFrom: {
+				customProperties: {
+					'--spacing-xs': '8px'
+				}
+			}
+		}
+	},
 	'basic': {
 		message: 'supports basic usage'
 	},

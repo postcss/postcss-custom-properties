@@ -1,0 +1,3 @@
+.test {
+  padding: var(--KButtonPaddingY, var(--spacing-xs, 8px));
+}
