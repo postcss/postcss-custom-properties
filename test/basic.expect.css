@@ -70,6 +70,11 @@ html {
 	background-image: linear-gradient(to right, var(--color, transparent) 0%, var(--color, transparent) 100%);
 }
 
+.without-spaces {
+	background-image: linear-gradient(rgb(255, 0, 0),rgb(255, 0, 0));
+	background-image: linear-gradient(var(--color),var(--color));
+}
+
 .test--loose-formatting {
 	color: rgb(255, 0, 0)/*rtl:red*/;
 	color: var(

@@ -52,6 +52,10 @@
 	background-image: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(255, 0, 0) 100%);
 }
 
+.without-spaces {
+	background-image: linear-gradient(rgb(255, 0, 0),rgb(255, 0, 0));
+}
+
 .test--loose-formatting {
 	color: rgb(255, 0, 0)/*rtl:red*/;
 }

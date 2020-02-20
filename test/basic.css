@@ -61,6 +61,10 @@ html {
 	background-image: linear-gradient(to right, var(--color, transparent) 0%, var(--color, transparent) 100%);
 }
 
+.without-spaces {
+	background-image: linear-gradient(var(--color),var(--color));
+}
+
 .test--loose-formatting {
 	color: var(
 		--color,
