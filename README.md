@@ -169,6 +169,7 @@ postcssCustomProperties({
     'and/then/this.js',   // module.exports = { customProperties: { '--color': 'red' } }
     'and/then/this.mjs',  // export const customProperties = { '--color': 'red' } }
     'and/then/that.json', // { "custom-properties": { "--color": "red" } }
+    'and/then/that.scss', // $color: red;
     cachedObject,
     customProperties => {
       customProperties    // { '--color': 'red' }
