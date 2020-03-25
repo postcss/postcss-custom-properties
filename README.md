@@ -179,8 +179,8 @@ postcssCustomProperties({
 ```
 
 See example exports written to [CSS](test/export-properties.css),
-[JS](test/export-properties.js), [MJS](test/export-properties.mjs), and
-[JSON](test/export-properties.json).
+[JS](test/export-properties.js), [MJS](test/export-properties.mjs),
+[JSON](test/export-properties.json) and [SCSS](test/export-properties.scss).
 
 [cli-img]: https://img.shields.io/travis/postcss/postcss-custom-properties/master.svg
 [cli-url]: https://travis-ci.org/postcss/postcss-custom-properties
