@@ -23,7 +23,8 @@
     "pretest:tape": "rollup -c .rollup.js --silent",
     "test": "npm run test:js && npm run test:tape",
     "test:js": "eslint src/{*,**/*}.js --cache --ignore-path .gitignore --quiet",
-    "test:tape": "postcss-tape"
+    "test:tape": "postcss-tape",
+    "postinstall": "npm run pretest:tape"
   },
   "engines": {
     "node": ">=8.0.0"
