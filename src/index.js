@@ -28,8 +28,8 @@ export default postcss.plugin('postcss-custom-properties', opts => {
 	const asyncTransform = async root => {
 		const customProperties = Object.assign(
 			{},
-			await customPropertiesPromise,
-			getCustomPropertiesFromRoot(root, { preserve })
+			getCustomPropertiesFromRoot(root, { preserve }),
+			await customPropertiesPromise
 		);
 
 		await writeCustomPropertiesToExports(customProperties, exportTo);
