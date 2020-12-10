@@ -1,6 +1,6 @@
 import { parse } from 'postcss-values-parser';
 import transformValueAST from './transform-value-ast';
-import { isRuleIgnored } from './is-ignored';
+import { isRuleIgnored, isRulePreserved } from './is-ignored';
 
 // transform custom pseudo selectors with custom selectors
 export default (root, customProperties, opts) => {
@@ -13,7 +13,7 @@ export default (root, customProperties, opts) => {
 
 			// conditionally transform values that have changed
 			if (value !== originalValue) {
-				if (opts.preserve) {
+				if (opts.preserve && isRulePreserved(decl)) {
 					const beforeDecl = decl.cloneBefore({ value });
 
 					if (hasTrailingComment(beforeDecl)) {

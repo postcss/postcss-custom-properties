@@ -14,7 +14,17 @@ function isRuleIgnored(rule) {
 		/(!\s*)?postcss-custom-properties:\s*ignore\s+next\b/i.test(previous.text));
 }
 
+function isRulePreserved(rule) {
+	var previous = rule.prev();
+
+	return !Boolean(!isBlockIgnored(rule) &&
+		previous &&
+		previous.type === 'comment' &&
+		/(!\s*)?postcss-custom-properties:\s*disable\s+preserve\b/i.test(previous.text));
+}
+
 export {
 	isBlockIgnored,
-	isRuleIgnored
+	isRuleIgnored,
+	isRulePreserved
 }
